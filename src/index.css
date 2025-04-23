@@ -195,7 +195,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
-  height: 115vh;
+  height: 100%;
 }
 
 @media (min-width: 640px) {

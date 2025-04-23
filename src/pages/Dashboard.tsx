@@ -42,13 +42,14 @@ const Dashboard: React.FC = () => {
     }, temperatures[0]);
   };
 
-  const latestTemperature = getLatestTemperature();
-
   const getAverageTemperature = () => {
     if (temperatures.length === 0) return 0;
     const sum = temperatures.reduce((total, temp) => total + temp.temperatura, 0);
-    return (sum / temperatures.length).toFixed(1);
+    const average = sum / temperatures.length;
+    return parseFloat(average.toFixed(1));
   };
+
+  const latestTemperature = getLatestTemperature();
 
   if (loading) {
     return (
