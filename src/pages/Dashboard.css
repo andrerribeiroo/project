@@ -1,0 +1,160 @@
+.dashboard {
+  padding: 2rem 0;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-icon {
+  background: var(--color-primary-light);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-right: 1rem;
+  color: var(--color-primary-dark);
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-title {
+  font-size: 0.875rem;
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+  margin: 0.25rem 0 0;
+}
+
+.latest-record {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.latest-record h2 {
+  font-size: 1.25rem;
+  color: var(--color-gray-800);
+  margin: 0 0 1rem;
+}
+
+.latest-record-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.latest-temperature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-primary);
+}
+
+.temperature-value {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.latest-details {
+  flex: 1;
+}
+
+.latest-details p {
+  margin: 0.5rem 0;
+  color: var(--color-gray-700);
+}
+
+.temperature-chart-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.temperature-chart-container h2 {
+  font-size: 1.25rem;
+  color: var(--color-gray-800);
+  margin: 0 0 1rem;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-gray-200);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-container {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error-container p {
+  color: var(--color-error);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .latest-record-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+}
