@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Thermometer } from 'lucide-react';
-import { createTemperature, getLocations } from '../api';
-import { Temperature, Location } from '../types';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Thermometer } from "lucide-react";
+import { createTemperature, getLocations } from "../api";
+import { Temperature, Location } from "../types";
 
 const AddTemperaturePage: React.FC = () => {
   const navigate = useNavigate();
   const [locations, setLocations] = useState<Location[]>([]);
   const [temperature, setTemperature] = useState<Partial<Temperature>>({
-    data: new Date().toISOString().split('T')[0],
+    data: new Date().toISOString().split("T")[0],
     horario: new Date().toTimeString().slice(0, 5),
     temperatura: 0,
-    id_local: undefined
+    id_local: undefined,
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -24,10 +24,10 @@ const AddTemperaturePage: React.FC = () => {
       const data = await getLocations();
       setLocations(data);
       if (data.length > 0) {
-        setTemperature(prev => ({ ...prev, id_local: data[0].id_local }));
+        setTemperature((prev) => ({ ...prev, id_local: data[0].id_local }));
       }
     } catch (err) {
-      setError('Erro ao carregar locais');
+      setError("Erro ao carregar locais");
       console.error(err);
     }
   };
@@ -36,9 +36,9 @@ const AddTemperaturePage: React.FC = () => {
     e.preventDefault();
     try {
       await createTemperature(temperature as Temperature);
-      navigate('/temperatures');
+      navigate("/temperatures");
     } catch (err) {
-      setError('Erro ao criar registro de temperatura');
+      setError("Erro ao criar registro de temperatura");
       console.error(err);
     }
   };
@@ -47,7 +47,9 @@ const AddTemperaturePage: React.FC = () => {
     <div className="p-6 max-w-2xl mx-auto">
       <div className="flex items-center mb-6">
         <Thermometer size={24} className="text-primary mr-2" />
-        <h1 className="text-2xl font-bold text-gray-800">Adicionar Registro de Temperatura</h1>
+        <h1 className="text-2xl font-bold text-gray-800">
+          Adicionar Registro de Temperatura
+        </h1>
       </div>
 
       {error && (
@@ -58,16 +60,23 @@ const AddTemperaturePage: React.FC = () => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="form-group">
-          <label htmlFor="local" className="form-label">Local</label>
+          <label htmlFor="local" className="form-label">
+            Local
+          </label>
           <select
             id="local"
             className="form-select"
             value={temperature.id_local}
-            onChange={e => setTemperature({ ...temperature, id_local: parseInt(e.target.value) })}
+            onChange={(e) =>
+              setTemperature({
+                ...temperature,
+                id_local: parseInt(e.target.value),
+              })
+            }
             required
           >
             <option value="">Selecione um local</option>
-            {locations.map(loc => (
+            {locations.map((loc) => (
               <option key={loc.id_local} value={loc.id_local}>
                 {loc.nome}
               </option>
@@ -76,37 +85,52 @@ const AddTemperaturePage: React.FC = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="data" className="form-label">Data</label>
+          <label htmlFor="data" className="form-label">
+            Data
+          </label>
           <input
             type="date"
             id="data"
             className="form-input"
             value={temperature.data}
-            onChange={e => setTemperature({ ...temperature, data: e.target.value })}
+            onChange={(e) =>
+              setTemperature({ ...temperature, data: e.target.value })
+            }
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="horario" className="form-label">Horário</label>
+          <label htmlFor="horario" className="form-label">
+            Horário
+          </label>
           <input
             type="time"
             id="horario"
             className="form-input"
             value={temperature.horario}
-            onChange={e => setTemperature({ ...temperature, horario: e.target.value })}
+            onChange={(e) =>
+              setTemperature({ ...temperature, horario: e.target.value })
+            }
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="temperatura" className="form-label">Temperatura (°C)</label>
+          <label htmlFor="temperatura" className="form-label">
+            Temperatura (°C)
+          </label>
           <input
             type="number"
             id="temperatura"
             className="form-input"
             value={temperature.temperatura}
-            onChange={e => setTemperature({ ...temperature, temperatura: parseFloat(e.target.value) })}
+            onChange={(e) =>
+              setTemperature({
+                ...temperature,
+                temperatura: parseFloat(e.target.value),
+              })
+            }
             step="0.1"
             required
           />
@@ -116,10 +140,10 @@ const AddTemperaturePage: React.FC = () => {
           <button type="submit" className="btn btn-primary">
             Salvar Registro
           </button>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="btn btn-outline"
-            onClick={() => navigate('/temperatures')}
+            onClick={() => navigate("/temperatures")}
           >
             Cancelar
           </button>
