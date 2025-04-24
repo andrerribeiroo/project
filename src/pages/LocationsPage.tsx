@@ -97,11 +97,6 @@ const LocationsPage: React.FC = () => {
                       <p className="text-gray-500 text-sm mt-1">
                         {location.estado && `${location.estado}, `}{location.pais}
                       </p>
-                      {location.coordenadas && (
-                        <p className="text-gray-400 text-xs mt-2">
-                          <span className="font-medium">Coordenadas:</span> {location.coordenadas}
-                        </p>
-                      )}
                     </div>
                   </div>
                   <div className="flex gap-1">
