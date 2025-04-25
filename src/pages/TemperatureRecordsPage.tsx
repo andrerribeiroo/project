@@ -9,6 +9,7 @@ const ITEMS_PER_PAGE = 50;
 const TemperatureRecordsPage: React.FC = () => {
   const [temperatures, setTemperatures] = useState<Temperature[]>([]);
   const [filteredTemperatures, setFilteredTemperatures] = useState<Temperature[]>([]);
+  const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
