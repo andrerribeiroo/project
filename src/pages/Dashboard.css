@@ -347,7 +347,19 @@ body {
   color: #64748b;
   margin-top: 0.25rem;
 }
-
+.btn-refresh{
+  background-color: #0E7AE4;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin-bottom: 20px;
+  border: none;
+  margin-left: 10px;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
 .dashboard-subtitle {
   color: #64748b;
   font-size: 0.875rem;
