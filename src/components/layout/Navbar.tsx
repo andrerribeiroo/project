@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
           <Cloud size={24} />
-          <span>Dados Climáticos</span>
+          <span>TempInfo</span>
         </Link>
 
         <div className="menu-icon" onClick={toggleMenu}>

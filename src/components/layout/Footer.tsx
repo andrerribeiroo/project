@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <p className="footer-text">Sistema de Gerenciamento de Dados Climáticos &copy; {currentYear}</p>
+        <p className="footer-text">Sistema de Gerenciamento de Dados Climáticos TempInfo &copy; {currentYear}</p>
       </div>
     </footer>
   );

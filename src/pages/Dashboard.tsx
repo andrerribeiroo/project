@@ -199,7 +199,46 @@ const Dashboard: React.FC = () => {
             locations={locations}
           />
         </div>
+
+        
       )}
+
+      {/* Seção Sobre a Empresa */}
+      <div className="about-section">
+        <div className="about-content">
+          <h2>Sobre a TempInfo</h2>
+          <p>
+            A TempInfo é líder em monitoramento climático, fornecendo dados precisos e análises avançadas para ajudar organizações a tomar decisões informadas sobre questões ambientais.
+          </p>
+          <p>
+            Combinamos tecnologia de ponta com expertise científica para oferecer soluções personalizadas de monitoramento climático para diversos setores, incluindo agricultura, energia e gestão urbana.
+          </p>
+          <p>
+            Nossa rede de sensores cobre mais de 50 localidades em todo o país, coletando dados em tempo real que são processados por nossos algoritmos proprietários.
+          </p>
+          <div className="about-features">
+            <div className="feature">
+              <Cloud size={20} />
+              <span>Monitoramento 24/7</span>
+            </div>
+            <div className="feature">
+              <TrendingUp size={20} />
+              <span>Análise de tendências</span>
+            </div>
+            <div className="feature">
+              <MapPin size={20} />
+              <span>Cobertura nacional</span>
+            </div>
+          </div>
+        </div>
+        <div className="about-image">
+          <img 
+            src="https://cdn.jd1noticias.com/upload/dn_noticia/2019/03/natura-carta-da-parati-1920x1080-1931-f67f7822_2.jpg" 
+            alt="Estação meteorológica" 
+          />
+        </div>
+      </div>
+
     </div>
   );
 };

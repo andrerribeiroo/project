@@ -1,6 +1,6 @@
-/* Dashboard.css */
-
-/* Base Styles */
+/* ===========================
+   🎨 Variáveis Globais
+=========================== */
 :root {
   --primary-color: #4361ee;
   --secondary-color: #3f37c9;
@@ -10,11 +10,15 @@
   --success-color: #4caf50;
   --warning-color: #ff9800;
   --danger-color: #f44336;
+
   --border-radius: 12px;
   --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
 }
 
+/* ===========================
+   🧼 Reset e Estilo Base
+=========================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -28,7 +32,20 @@ body {
   background-color: #f5f7fb;
 }
 
-/* Loading Styles */
+/* ===========================
+   🔄 Animações
+=========================== */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* ===========================
+   ⏳ Loading
+=========================== */
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -42,24 +59,20 @@ body {
   width: 60px;
   height: 60px;
   border: 5px solid rgba(67, 97, 238, 0.2);
-  border-radius: 50%;
   border-top-color: var(--primary-color);
+  border-radius: 50%;
   animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .loading-container p {
   font-size: 1.2rem;
-  color: var(--dark-color);
   font-weight: 500;
+  color: var(--dark-color);
 }
 
-/* Error Styles */
+/* ===========================
+   ❌ Erro
+=========================== */
 .error-container {
   display: flex;
   flex-direction: column;
@@ -77,6 +90,9 @@ body {
   font-weight: 500;
 }
 
+/* ===========================
+   🔘 Botões
+=========================== */
 .btn {
   padding: 0.8rem 1.5rem;
   border: none;
@@ -102,7 +118,23 @@ body {
   box-shadow: var(--box-shadow);
 }
 
-/* Dashboard Styles */
+.btn-refresh {
+  background-color: #0E7AE4;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* ===========================
+   🧾 Dashboard Geral
+=========================== */
 .dashboard {
   padding: 2rem;
   max-width: 1400px;
@@ -111,17 +143,11 @@ body {
   animation: fadeIn 0.5s ease-in forwards;
 }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
 .dashboard-title {
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: var(--dark-color);
   text-align: center;
+  color: var(--dark-color);
   position: relative;
   padding-bottom: 1rem;
 }
@@ -138,7 +164,15 @@ body {
   border-radius: 2px;
 }
 
-/* Stats Cards */
+.dashboard-subtitle {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* ===========================
+   📊 Cards de Estatísticas
+=========================== */
 .dashboard-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -192,21 +226,122 @@ body {
 
 .stat-title {
   font-size: 1rem;
+  font-weight: 500;
   color: #666;
   margin-bottom: 0.5rem;
-  font-weight: 500;
 }
 
 .stat-value {
   font-size: 2rem;
   font-weight: 700;
   color: var(--dark-color);
-  margin: 0;
 }
 
-/* Latest Record Section */
+.stat-subtext {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+/* ===========================
+   🏢 Seção Sobre a Empresa
+=========================== */
+.about-section {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+}
+
+.about-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.about-content {
+  flex: 1;
+}
+
+.about-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark-color);
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.about-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+}
+
+.about-content p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  color: #555;
+}
+
+.about-image {
+  flex: 1;
+  max-height: 400px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.about-image:hover img {
+  transform: scale(1.03);
+}
+
+.about-features {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(67, 97, 238, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  transition: var(--transition);
+}
+
+.feature:hover {
+  background: rgba(67, 97, 238, 0.2);
+  transform: translateY(-2px);
+}
+
+.feature svg {
+  color: var(--primary-color);
+}
+
+/* ===========================
+   📌 Últimos Registros
+=========================== */
 .latest-record {
-  background: rgb(230, 230, 230);
+  background: #e6e6e6;
   border-radius: var(--border-radius);
   padding: 2rem;
   box-shadow: var(--box-shadow);
@@ -256,7 +391,6 @@ body {
 .temperature-value {
   font-size: 3rem;
   font-weight: 700;
-  color: var(--primary-color);
   background: linear-gradient(to right, var(--primary-color), var(--accent-color));
   -webkit-background-clip: text;
   background-clip: text;
@@ -268,8 +402,8 @@ body {
 }
 
 .latest-details p {
-  margin-bottom: 0.8rem;
   font-size: 1.1rem;
+  margin-bottom: 0.8rem;
 }
 
 .latest-details strong {
@@ -277,7 +411,9 @@ body {
   font-weight: 600;
 }
 
-/* Chart Container */
+/* ===========================
+   📈 Gráfico de Temperatura
+=========================== */
 .temperature-chart-container {
   background: white;
   border-radius: var(--border-radius);
@@ -310,6 +446,9 @@ body {
   border-radius: 2px;
 }
 
+/* ===========================
+   🎛️ Filtros
+=========================== */
 .dashboard-filters {
   display: flex;
   gap: 1.5rem;
@@ -342,46 +481,24 @@ body {
   font-size: 0.875rem;
 }
 
-.stat-subtext {
-  font-size: 0.75rem;
-  color: #64748b;
-  margin-top: 0.25rem;
-}
-.btn-refresh{
-  background-color: #0E7AE4;
-  color: white;
-  padding: 0.5rem 1rem;
-  margin-bottom: 20px;
-  border: none;
-  margin-left: 10px;
-  border-radius: var(--border-radius);
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.dashboard-subtitle {
-  color: #64748b;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-}
-
-/* Responsive Design */
+/* ===========================
+   📱 Responsividade
+=========================== */
 @media (max-width: 992px) {
   .dashboard {
     padding: 1.5rem;
   }
-  
+
   .dashboard-title {
     font-size: 2rem;
   }
-  
+
   .latest-record-content {
     flex-direction: column;
-    gap: 1.5rem;
     align-items: flex-start;
+    gap: 1.5rem;
   }
-  
+
   .temperature-value {
     font-size: 2.5rem;
   }
@@ -391,20 +508,35 @@ body {
   .dashboard {
     padding: 1rem;
   }
-  
+
   .dashboard-title {
     font-size: 1.8rem;
   }
-  
+
   .dashboard-stats {
     grid-template-columns: 1fr;
   }
-  
+
   .stat-card {
     padding: 1.2rem;
   }
-  
-  .latest-record, .temperature-chart-container {
+
+  .about-section {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .about-image {
+    max-height: 300px;
+    order: -1;
+  }
+
+  .about-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .latest-record,
+  .temperature-chart-container {
     padding: 1.5rem;
   }
 }
@@ -413,16 +545,25 @@ body {
   .dashboard-title {
     font-size: 1.5rem;
   }
-  
+
   .stat-value {
     font-size: 1.8rem;
   }
-  
+
   .temperature-value {
     font-size: 2rem;
   }
-  
+
   .latest-details p {
     font-size: 1rem;
+  }
+
+  .about-features {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-content p {
+    font-size: 0.95rem;
   }
 }
