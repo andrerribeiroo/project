@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Thermometer, Plus, Edit, Trash2 } from 'lucide-react';
+import { Thermometer, Plus, Edit, Trash2, Calendar, Filter } from 'lucide-react';
 import { getTemperatures, deleteTemperature } from '../api';
 import { Temperature } from '../types';
 
@@ -8,13 +8,22 @@ const ITEMS_PER_PAGE = 50;
 
 const TemperatureRecordsPage: React.FC = () => {
   const [temperatures, setTemperatures] = useState<Temperature[]>([]);
+  const [filteredTemperatures, setFilteredTemperatures] = useState<Temperature[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+  const [isFiltered, setIsFiltered] = useState(false);
 
   useEffect(() => {
     fetchTemperatures();
   }, []);
+
+  useEffect(() => {
+    // Aplicar filtro sempre que as temperaturas ou as datas mudarem
+    applyDateFilter();
+  }, [temperatures, startDate, endDate]);
 
   const fetchTemperatures = async () => {
     try {
@@ -42,8 +51,42 @@ const TemperatureRecordsPage: React.FC = () => {
     }
   };
 
-  const totalPages = Math.ceil(temperatures.length / ITEMS_PER_PAGE);
-  const paginatedData = temperatures.slice(
+  const applyDateFilter = () => {
+    if (!startDate && !endDate) {
+      setFilteredTemperatures(temperatures);
+      setIsFiltered(false);
+      return;
+    }
+
+    const filtered = temperatures.filter(temp => {
+      const tempDate = new Date(temp.data);
+      const start = startDate ? new Date(startDate) : null;
+      const end = endDate ? new Date(endDate) : null;
+
+      if (start && end) {
+        return tempDate >= start && tempDate <= end;
+      } else if (start) {
+        return tempDate >= start;
+      } else if (end) {
+        return tempDate <= end;
+      }
+      return true;
+    });
+
+    setFilteredTemperatures(filtered);
+    setIsFiltered(true);
+    setCurrentPage(1); // Resetar para a primeira página ao aplicar filtro
+  };
+
+  const clearFilter = () => {
+    setStartDate('');
+    setEndDate('');
+    setIsFiltered(false);
+    setFilteredTemperatures(temperatures);
+  };
+
+  const totalPages = Math.ceil(filteredTemperatures.length / ITEMS_PER_PAGE);
+  const paginatedData = filteredTemperatures.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
@@ -67,11 +110,60 @@ const TemperatureRecordsPage: React.FC = () => {
         </Link>
       </div>
 
+      {/* Filtro por data */}
+      <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+        <div className="flex items-center mb-4">
+          <Filter size={18} className="mr-2 text-gray-600" />
+          <h2 className="text-lg font-semibold text-gray-700">Filtrar por Data</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Data Inicial</label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Data Final</label>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          
+          <div className="flex items-end space-x-2">
+            <button
+              onClick={clearFilter}
+              className="btn btn-secondary whitespace-nowrap"
+              disabled={!isFiltered}
+            >
+              Limpar Filtro
+            </button>
+          </div>
+        </div>
+      </div>
+
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           {error}
         </div>
       )}
+
+      {/* Contador de resultados */}
+      <div className="mb-4 text-sm text-gray-600">
+        {isFiltered ? (
+          <span>Mostrando {filteredTemperatures.length} registro(s) filtrado(s)</span>
+        ) : (
+          <span>Total de {temperatures.length} registro(s)</span>
+        )}
+      </div>
 
       <div className="overflow-x-auto">
         <table className="table min-w-full">
@@ -140,10 +232,20 @@ const TemperatureRecordsPage: React.FC = () => {
       {paginatedData.length === 0 && !loading && (
         <div className="text-center py-8">
           <Thermometer size={48} className="mx-auto text-gray-400 mb-4" />
-          <p className="text-gray-600">Nenhum registro de temperatura encontrado</p>
-          <Link to="/temperatures/add" className="btn btn-primary mt-4">
-            Adicionar Primeiro Registro
-          </Link>
+          <p className="text-gray-600">
+            {isFiltered 
+              ? "Nenhum registro encontrado para o intervalo de datas selecionado"
+              : "Nenhum registro de temperatura encontrado"}
+          </p>
+          {isFiltered ? (
+            <button onClick={clearFilter} className="btn btn-primary mt-4">
+              Limpar Filtro
+            </button>
+          ) : (
+            <Link to="/temperatures/add" className="btn btn-primary mt-4">
+              Adicionar Primeiro Registro
+            </Link>
+          )}
         </div>
       )}
     </div>
